@@ -16,7 +16,7 @@ class WordCloud extends Component {
     }
 
     componentDidMount() {
-        const { width=this._getComputedWidth(), height=this._getComputedWidth() * 9 / 16 } = this.props;
+        const { width=this._getComputedWidth(), height=width * 9 / 16 } = this.props;
         const layout = cloud()
             .size([width, height])
             .words(
