@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { min, max } from 'd3-array';
+import { scaleLinear } from 'd3-scale';
 import { select } from 'd3-selection';
 import cloud from 'd3-cloud';
 
 
+/**
+ * WordCloud
+ *
+ * props:
+ *  - words: words to display, it's list of objects that in shape:
+ *    {
+ *      text: word to display,
+ *      frequence: frequence of the word, large frequence will display larger
+ *    }
+ *  - width: width of this component. If not specified this will be the width of
+ *           the element.
+ *  - height: height of this component. If not specifid this will be 9 / 16 of
+ *            the width.
+ *
+ */
 class WordCloud extends Component {
 
     constructor(props) {
@@ -17,13 +34,11 @@ class WordCloud extends Component {
 
     componentDidMount() {
         const { width=this._getComputedWidth(), height=width * 9 / 16 } = this.props;
+        const { words } = this.props;
+        // TODO need to consider changes of props words
         const layout = cloud()
             .size([width, height])
-            .words(
-                ["Hello", "world", "normally", "you", "want", "more", "words",
-                    "than", "this"
-                ].map(d => ({text: d, size: height / 10 + Math.random() * height / 15}))
-            )
+            .words(this._calculateWords(words, height / 10, height / 8))
             .rotate(0)
             .fontSize(d => d.size)
             .on('end', words => {
@@ -43,6 +58,15 @@ class WordCloud extends Component {
         layout.start();
     }
 
+    _calculateWords(words, minSize, maxSize) {
+      const minFrequence = min(words, word => word.frequence);
+      const maxFrequence = max(words, word => word.frequence);
+      const size = scaleLinear()
+        .domain([minFrequence, maxFrequence])
+        .range([minSize, maxSize]);
+      return words.map(word => ({ text: word.text, size: size(word.frequence) }));
+    }
+
     _getComputedWidth() {
         return window.getComputedStyle(this._wordCloud).width.slice(0, -2);
     }
@@ -59,6 +83,10 @@ class WordCloud extends Component {
 }
 
 WordCloud.propTypes = {
+    words: PropTypes.arrayOf(PropTypes.shape({
+      text: PropTypes.string,
+      frequence: PropTypes.number
+    })),
     width: PropTypes.number,
     height: PropTypes.number
 }
