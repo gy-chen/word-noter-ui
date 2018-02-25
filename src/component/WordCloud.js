@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { min, max } from 'd3-array';
@@ -30,32 +31,43 @@ class WordCloud extends Component {
 
         this._wordCloudRef = this._wordCloudRef.bind(this);
         this._getComputedWidth = this._getComputedWidth.bind(this);
+        this._render = this._render.bind(this);
     }
 
     componentDidMount() {
-        const { width=this._getComputedWidth(), height=width * 9 / 16 } = this.props;
-        const { words } = this.props;
-        // TODO need to consider changes of props words
-        const layout = cloud()
-            .size([width, height])
-            .words(this._calculateWords(words, height / 10, height / 8))
-            .rotate(0)
-            .fontSize(d => d.size)
-            .on('end', words => {
-                select(this._wordCloud).append('svg')
-                    .attr("width", layout.size()[0])
-                    .attr("height", layout.size()[1])
-                    .append("g")
-                    .attr("transform", `translate(${layout.size()[0] / 2}, ${layout.size()[1] / 2})`)
-                    .selectAll("text")
-                    .data(words)
-                    .enter().append("text")
-                    .style("font-size", d => `${d.size}px`)
-                    .attr('text-anchor', 'middle')
-                    .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
-                    .text(d => d.text);
-            });
-        layout.start();
+        this._render();
+    }
+
+    _render() {
+      const { width=this._getComputedWidth(), height=width * 9 / 16 } = this.props;
+      const { words } = this.props;
+      const layout = cloud()
+          .size([width, height])
+          .words(this._calculateWords(words, height / 10, height / 8))
+          .rotate(0)
+          .fontSize(d => d.size)
+          .on('end', words => {
+              select(this._wordCloud).selectAll('svg').remove();
+              select(this._wordCloud).append('svg')
+                  .attr("width", layout.size()[0])
+                  .attr("height", layout.size()[1])
+                  .append("g")
+                  .attr("transform", `translate(${layout.size()[0] / 2}, ${layout.size()[1] / 2})`)
+                  .selectAll("text")
+                  .data(words)
+                  .enter().append("text")
+                  .style("font-size", d => `${d.size}px`)
+                  .attr('text-anchor', 'middle')
+                  .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
+                  .text(d => d.text);
+          });
+      layout.start();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      if (prevProps.words !== this.props.words) {
+        this._render();
+      }
     }
 
     _calculateWords(words, minSize, maxSize) {
@@ -64,7 +76,7 @@ class WordCloud extends Component {
       const size = scaleLinear()
         .domain([minFrequence, maxFrequence])
         .range([minSize, maxSize]);
-      return words.map(word => ({ text: word.text, size: size(word.frequence) }));
+      return _.map(words, word => ({ text: word.text, size: size(word.frequence) }));
     }
 
     _getComputedWidth() {

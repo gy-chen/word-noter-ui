@@ -2,8 +2,19 @@ import React from 'react';
 import Rx from 'rxjs';
 import withReceivedWords from './withReceivedWords';
 
-
-function withThrottleReceivedWords(Component, debounceTime=2000) {
+/**
+ * Provided received words from word noter server with throttile in specified time.
+ *
+ * This HOC will provided received words as prop named words. The shape of words will be:
+ *   {
+ *      "word1": frequenceOfWord1,
+ *      "word2": frequenceOfWord2,
+ *      ...
+ *   }
+ *
+ * @param Component
+ */
+function withThrottleReceivedWords(Component, throttleTIme=2000) {
 
   class WithThrottleReceivedWords extends React.Component {
 
@@ -23,7 +34,7 @@ function withThrottleReceivedWords(Component, debounceTime=2000) {
       this._observable = Rx.Observable.create(observer => {
         observer.next(this.state.words);
         this._observer = observer;
-      }).throttleTime(debounceTime);
+      }).throttleTime(throttleTIme);
       this._observable.subscribe(this._onSubscribe);
     }
 
