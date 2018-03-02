@@ -1,8 +1,8 @@
 import apisauce from 'apisauce';
 
 const api = apisauce.create({
-    // TODO get baseUrl from enviroment
-    baseUrl: 'http://127.0.0.1:4416'
+    // TODO get baseURL from enviroment
+    baseURL: 'http://127.0.0.1:5000'
 });
 
 /**
