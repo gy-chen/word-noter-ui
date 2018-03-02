@@ -20,6 +20,7 @@ import cloud from 'd3-cloud';
  *           the element.
  *  - height: height of this component. If not specifid this will be 9 / 16 of
  *            the width.
+ *  - onWordClick: callback function when user click a word
  *
  */
 class WordCloud extends Component {
@@ -59,7 +60,8 @@ class WordCloud extends Component {
                   .style("font-size", d => `${d.size}px`)
                   .attr('text-anchor', 'middle')
                   .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
-                  .text(d => d.text);
+                  .text(d => d.text)
+                  .on('click', d => _.invoke(this.props, 'onWordClick', d.text));
           });
       layout.start();
     }
@@ -100,7 +102,8 @@ WordCloud.propTypes = {
       frequence: PropTypes.number
     })),
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    onWordClick: PropTypes.func
 }
 
 export default WordCloud;
