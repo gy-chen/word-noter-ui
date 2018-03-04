@@ -4,7 +4,7 @@ import Types from '../action/type';
 const INITIAL_STATE = [];
 
 const WORDS_PUT = (state=INITIAL_STATE, action) => {
-  return [...state, action.payload];
+  return [...state, action.word];
 };
 
 const HANDLERS = {

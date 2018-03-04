@@ -13,3 +13,9 @@ export const putWordRequest = name => {
         name
     };
 }
+
+export const findAllWords = () => {
+  return {
+    type: Types.WORDS_FIND_ALL_REQUEST
+  };
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Word = props => {
-    const { name, date } = props;
+    const { word: { name, date } } = props;
 
     return (
         <div>
@@ -13,8 +13,12 @@ const Word = props => {
 };
 
 Word.propTypes = {
+  word: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
+    description: PropTypes.string,
     date: PropTypes.string
+  })
 }
 
 export default Word;
