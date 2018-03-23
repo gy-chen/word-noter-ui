@@ -1,3 +1,4 @@
+import qs from 'qs';
 import apisauce from 'apisauce';
 
 const api = apisauce.create({
@@ -24,7 +25,13 @@ const get = (id_) => api.get(`words/${id_}`);
  *
  * return: promise
  */
-const put = ({ name }) => api.post(`words`, { name });
+const put = ({ name }) => api.post('words',
+  qs.stringify({ name }),
+  {
+    headers: {
+     'Content-type': 'application/x-www-form-urlencoded'
+   }
+ });
 
 export default {
   findAll,
