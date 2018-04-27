@@ -1,10 +1,6 @@
 import qs from 'qs';
-import apisauce from 'apisauce';
+import { api } from './baseApi';
 
-const api = apisauce.create({
-    // TODO get baseURL from enviroment
-    baseURL: 'http://127.0.0.1:5000'
-});
 
 /**
  * find all words stored in the server
@@ -25,16 +21,16 @@ const get = (id_) => api.get(`words/${id_}`);
  *
  * return: promise
  */
-const put = ({ name }) => api.post('words',
-  qs.stringify({ name }),
-  {
-    headers: {
-     'Content-type': 'application/x-www-form-urlencoded'
-   }
- });
+const put = ({name}) => api.post('words',
+    qs.stringify({name}),
+    {
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded'
+        }
+    });
 
 export default {
-  findAll,
-  get,
-  put
+    findAll,
+    get,
+    put
 };
