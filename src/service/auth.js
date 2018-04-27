@@ -1,3 +1,4 @@
+import combineURLs from 'axios/lib/helpers/combineURLs';
 import { api } from './baseApi';
 import store from '../store';
 
@@ -14,3 +15,5 @@ api.addRequestTransform(request => {
  * @returns promise
  */
 export const profile = () => api.get('/profile');
+
+export const getLoginUrl = () => combineURLs(api.getBaseURL(), '/login');
