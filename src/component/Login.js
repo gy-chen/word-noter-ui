@@ -1,5 +1,4 @@
-import React from 'react';
-import { getLoginUrl } from '../service/auth';
+import { getLoginUrl } from '../service/authApi';
 
 const Login = () => {
     window.location = getLoginUrl();

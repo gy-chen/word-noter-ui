@@ -3,10 +3,10 @@ import { api } from './baseApi';
 import store from '../store';
 
 api.addRequestTransform(request => {
-  const state = store.getState();
-  if (state.auth.token) {
-    request.headers['Authorization'] = state.auth.token;
-  }
+    const state = store.getState();
+    if (state.auth.token) {
+        request.headers['Authorization'] = state.auth.token;
+    }
 });
 
 /**
@@ -17,3 +17,8 @@ api.addRequestTransform(request => {
 export const profile = () => api.get('/profile');
 
 export const getLoginUrl = () => combineURLs(api.getBaseURL(), '/login');
+
+export default {
+    profile,
+    getLoginUrl
+}
