@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { min, max } from "d3-array";
 import { scaleLinear } from "d3-scale";
-import { select } from "d3-selection";
 import cloud from "d3-cloud";
 
 /**

@@ -1,8 +1,8 @@
 import { getLoginUrl } from '../service/authApi';
 
-const Login = () => {
+const LoginRedirect = () => {
     window.location = getLoginUrl();
     return null;
 };
 
-export default Login;
+export default LoginRedirect;

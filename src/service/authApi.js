@@ -21,4 +21,4 @@ export const getLoginUrl = () => combineURLs(api.getBaseURL(), '/login');
 export default {
     profile,
     getLoginUrl
-}
+};
