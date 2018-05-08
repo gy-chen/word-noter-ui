@@ -1,15 +1,20 @@
 import _ from 'lodash';
+import React from 'react';
 import PropTypes from 'prop-types';
 import qs from 'qs';
-import {withRouter} from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
+import Loading from './Loading';
 
 const LoginCallback = (props) => {
-    const { location } = props;
+    const { location, currentUser } = props;
     const token = qs.parse(location.search.substring(1)).token;
+    if (currentUser) {
+        return <Redirect to="/" />
+    }
     if (token) {
         _.invoke(props, 'onReceiveToken', token);
     }
-    return null;
+    return <Loading />;
 };
 
 LoginCallback.propTypes = {

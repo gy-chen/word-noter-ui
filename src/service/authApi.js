@@ -5,7 +5,7 @@ import store from '../store';
 api.addRequestTransform(request => {
     const state = store.getState();
     if (state.auth.token) {
-        request.headers['Authorization'] = state.auth.token;
+        request.headers['Authorization'] = `Bearer ${state.auth.token}`;
     }
 });
 
