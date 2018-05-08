@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { api } from './baseApi';
 
 
@@ -21,13 +20,7 @@ const get = (id_) => api.get(`words/${id_}`);
  *
  * return: promise
  */
-const put = ({name}) => api.post('words',
-    qs.stringify({name}),
-    {
-        headers: {
-            'Content-type': 'application/x-www-form-urlencoded'
-        }
-    });
+const put = ({name}) => api.post('words', { name });
 
 export default {
     findAll,

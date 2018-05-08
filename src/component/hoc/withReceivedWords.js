@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import WebSocket from '../WebSocket';
+import socket from '../../util/socket';
+
 
 /**
  * Provided received words from word noter server
@@ -15,7 +16,7 @@ import WebSocket from '../WebSocket';
  * @param Component
  */
 // TODO put url setting into separate module
-function withReceivedWords(Component, url="ws://127.0.0.1:4413") {
+function withReceivedWords(Component) {
 
     return class extends React.Component {
 
@@ -24,9 +25,17 @@ function withReceivedWords(Component, url="ws://127.0.0.1:4413") {
 
             this._onmessage = this._onmessage.bind(this);
             this._updateWordFrequence = this._updateWordFrequence.bind(this);
+            this._initializeSocketIO = this._initializeSocketIO.bind(this);
             this.state = {
                 words: {}
             };
+
+            this._socket = socket;
+            this._initializeSocketIO();
+        }
+
+        _initializeSocketIO() {
+            this._socket.on('word', this._onmessage);
         }
 
         _onmessage(word) {
@@ -45,10 +54,6 @@ function withReceivedWords(Component, url="ws://127.0.0.1:4413") {
         render() {
             return (
                 <div>
-                    <WebSocket
-                        url={url}
-                        onmessage={this._onmessage}
-                        />
                     <Component
                         words={this.state.words}
                         {...this.props}
