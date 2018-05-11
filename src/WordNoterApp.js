@@ -4,7 +4,9 @@ import withThrottleReceivedWords from './component/hoc/withThrottleReceivedWords
 import withReversedWordFrequencies from './component/hoc/withReversedWordFrequencies';
 import ReceivedWordCloud from './container/ReceivedWordCloud';
 import WordList from './container/WordList';
+import Uppy from './component/Uppy';
 import { initializeApp } from './util/app';
+
 
 const ThrottleReversedFrequenciesReceivedWordCloud = _.flowRight(
     withThrottleReceivedWords,
@@ -20,6 +22,7 @@ class WordNoterApp extends Component {
     render() {
         return (
             <div>
+                <Uppy />
                 <ThrottleReversedFrequenciesReceivedWordCloud/>
                 <WordList/>
             </div>
