@@ -14,9 +14,9 @@ import withReceivedWords from './withReceivedWords';
  *
  * @param Component
  */
-function withThrottleReceivedWords(Component, throttleTIme=2000) {
+function withDebounceReceivedWords(Component, debounceTime=2000) {
 
-  class WithThrottleReceivedWords extends React.Component {
+  class WithDebounceReceivedWords extends React.Component {
 
     constructor(props) {
       super(props);
@@ -34,7 +34,7 @@ function withThrottleReceivedWords(Component, throttleTIme=2000) {
       this._observable = Rx.Observable.create(observer => {
         observer.next(this.state.words);
         this._observer = observer;
-      }).throttleTime(throttleTIme);
+      }).debounceTime(debounceTime);
       this._observable.subscribe(this._onSubscribe);
     }
 
@@ -60,7 +60,7 @@ function withThrottleReceivedWords(Component, throttleTIme=2000) {
     }
   }
 
-  return withReceivedWords(WithThrottleReceivedWords);
+  return withReceivedWords(WithDebounceReceivedWords);
 }
 
-export default withThrottleReceivedWords;
+export default withDebounceReceivedWords;
