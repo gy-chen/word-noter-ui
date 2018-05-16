@@ -49,8 +49,9 @@ class WordCloud extends Component {
     const { words } = this.props;
     const layout = cloud()
       .size([width, height])
-      .words(this._calculateWords(words, height / 10, height / 8))
+      .words(this._calculateWords(words, height / 128, height / 16))
       .rotate(0)
+      .padding(12)
       .fontSize(d => d.size)
       .on("end", words => {
         const children = words.map(word => {
@@ -75,6 +76,7 @@ class WordCloud extends Component {
         });
         this.setState({
           containerStyle: {
+            position: 'relative',
             width,
             height
           },
