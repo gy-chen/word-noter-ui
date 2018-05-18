@@ -8,6 +8,8 @@ const uppy = Uppy();
 uppy.use(SokcetIOUpload, {
     channel: 'image',
     io: socket
-})
+});
+
+uppy.run();
 
 export default uppy;
