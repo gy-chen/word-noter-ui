@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import withThrottleReceivedWords from './component/hoc/withThrottleReceivedWords';
+import withDebounceReceivedWords from './component/hoc/withDebounceReceivedWords';
 import withReversedWordFrequencies from './component/hoc/withReversedWordFrequencies';
 import ReceivedWordCloud from './container/ReceivedWordCloud';
 import WordList from './container/WordList';
@@ -9,7 +9,7 @@ import { initializeApp } from './util/app';
 
 
 const ThrottleReversedFrequenciesReceivedWordCloud = _.flowRight(
-    withThrottleReceivedWords,
+    withDebounceReceivedWords,
     withReversedWordFrequencies
 )(ReceivedWordCloud);
 
@@ -21,10 +21,18 @@ class WordNoterApp extends Component {
 
     render() {
         return (
-            <div>
-                <Uppy />
-                <ThrottleReversedFrequenciesReceivedWordCloud/>
-                <WordList/>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col d-flex flex-column align-items-center">
+                        <Uppy />
+                        <div className="align-self-stretch">
+                            <ThrottleReversedFrequenciesReceivedWordCloud/>
+                        </div>
+                    </div>
+                    <div className="col-3">
+                        <WordList/>
+                    </div>
+                </div>
             </div>
         );
     }

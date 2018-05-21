@@ -4,6 +4,7 @@ import AuthenticatedRoute from './container/AuthenticatedRoute';
 import WordNoterApp from './WordNoterApp';
 import LoginLink from './component/LoginLink';
 import LoginRedirect from './component/LoginRedirect';
+import Header from './container/Header';
 import LoginCallback from './container/LoginCallback';
 import './App.css'
 
@@ -12,12 +13,13 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Switch>
+          <div>
+            <Route path="/" component={Header} />
             <Route path="/login/redirect" component={LoginRedirect} />
             <Route path="/login/callback" component={LoginCallback} />
-            <Route path="/login" component={LoginLink} />
-            <AuthenticatedRoute path="/" component={WordNoterApp} />
-          </Switch>
+            <Route path="/login" exact component={LoginLink} />
+            <AuthenticatedRoute path="/" exact component={WordNoterApp} />
+          </div>
         </Router>
       </div>
     );
