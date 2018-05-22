@@ -6,10 +6,15 @@ import rootEpic from '../epic';
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
-// TODO only use logger in development
+const middlewares = [epicMiddleware];
+
+if (process.env.NODE_ENV === 'development') {
+    middlewares.push(logger);
+}
+
 const store = createStore(
     rootReducer,
-    applyMiddleware(epicMiddleware, logger)
+    applyMiddleware(...middlewares)
 );
 
 export default store;
