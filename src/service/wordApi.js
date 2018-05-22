@@ -1,6 +1,5 @@
 import { api } from './baseApi';
 
-
 /**
  * find all words stored in the server
  *
@@ -13,17 +12,17 @@ const findAll = () => api.get('words');
  *
  * return: promise
  */
-const get = (id_) => api.get(`words/${id_}`);
+const get = id_ => api.get(`words/${id_}`);
 
 /**
  * put new word to the server
  *
  * return: promise
  */
-const put = ({name}) => api.post('words', { name });
+const put = ({ name }) => api.post('words', { name });
 
 export default {
-    findAll,
-    get,
-    put
+  findAll,
+  get,
+  put
 };

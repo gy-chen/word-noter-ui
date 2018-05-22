@@ -4,39 +4,37 @@ import Webcam from 'uppy/lib/plugins/Webcam';
 import 'uppy/dist/uppy.css';
 import uppy from '../service/uppy';
 
-
 class Uppy extends Component {
+  static propTypes = {
+    uppy: PropTypes.object.isRequired
+  };
 
-    static propTypes = {
-        uppy: PropTypes.object.isRequired
-    }
+  static defaultProps = {
+    uppy
+  };
 
-    static defaultProps = {
-        uppy
-    }
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    this._ref = this._ref.bind(this);
+  }
 
-        this._ref = this._ref.bind(this);
-    }
+  componentDidMount() {
+    const { uppy } = this.props;
 
-    componentDidMount() {
-        const { uppy } = this.props;
+    uppy.use(Webcam, {
+      target: this._target,
+      mirror: false
+    });
+  }
 
-        uppy.use(Webcam, {
-            target: this._target,
-            mirror: false
-        });
-    }
+  _ref(target) {
+    this._target = target;
+  }
 
-    _ref(target) {
-        this._target = target;
-    }
-
-    render() {
-        return (<div ref={this._ref}></div>);
-    }
+  render() {
+    return <div ref={this._ref} />;
+  }
 }
 
 export default Uppy;

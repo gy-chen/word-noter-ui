@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React from 'react';
 import socket from '../../service/socket';
 
-
 /**
  * Provided received words from word noter server
  *
@@ -16,51 +15,46 @@ import socket from '../../service/socket';
  * @param Component
  */
 function withReceivedWords(Component) {
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
 
-    return class extends React.Component {
+      this._onmessage = this._onmessage.bind(this);
+      this._updateWordFrequence = this._updateWordFrequence.bind(this);
+      this._initializeSocketIO = this._initializeSocketIO.bind(this);
+      this.state = {
+        words: {}
+      };
 
-        constructor(props) {
-            super(props);
+      this._socket = socket;
+      this._initializeSocketIO();
+    }
 
-            this._onmessage = this._onmessage.bind(this);
-            this._updateWordFrequence = this._updateWordFrequence.bind(this);
-            this._initializeSocketIO = this._initializeSocketIO.bind(this);
-            this.state = {
-                words: {}
-            };
+    _initializeSocketIO() {
+      this._socket.on('word', this._onmessage);
+    }
 
-            this._socket = socket;
-            this._initializeSocketIO();
-        }
+    _onmessage(word) {
+      this.setState({
+        words: this._updateWordFrequence(this.state.words, word)
+      });
+    }
 
-        _initializeSocketIO() {
-            this._socket.on('word', this._onmessage);
-        }
+    _updateWordFrequence(words, targetWord) {
+      return {
+        ...words,
+        [targetWord]: _.get(words, targetWord, 0) + 1
+      };
+    }
 
-        _onmessage(word) {
-            this.setState({
-                words: this._updateWordFrequence(this.state.words, word)
-            });
-        }
-
-        _updateWordFrequence(words, targetWord) {
-            return {
-                ...words,
-                [targetWord]: _.get(words, targetWord, 0) + 1
-            };
-        }
-
-        render() {
-            return (
-                <div>
-                    <Component
-                        words={this.state.words}
-                        {...this.props}
-                    />
-                </div>
-            );
-        }
-    };
+    render() {
+      return (
+        <div>
+          <Component words={this.state.words} {...this.props} />
+        </div>
+      );
+    }
+  };
 }
 
 export default withReceivedWords;

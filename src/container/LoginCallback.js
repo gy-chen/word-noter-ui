@@ -3,11 +3,11 @@ import LoginCallback from '../component/LoginCallback';
 import { setToken } from '../action/auth';
 
 const mapStateToProps = state => ({
-    currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser
 });
 
 const mapDispatchToProps = {
-    onReceiveToken: setToken
+  onReceiveToken: setToken
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginCallback);

@@ -7,37 +7,35 @@ import WordList from './container/WordList';
 import Uppy from './component/Uppy';
 import { initializeApp } from './util/app';
 
-
 const ThrottleReversedFrequenciesReceivedWordCloud = _.flowRight(
-    withDebounceReceivedWords,
-    withReversedWordFrequencies
+  withDebounceReceivedWords,
+  withReversedWordFrequencies
 )(ReceivedWordCloud);
 
 class WordNoterApp extends Component {
+  componentDidMount() {
+    initializeApp();
+  }
 
-    componentDidMount() {
-        initializeApp();
-    }
-
-    render() {
-        return (
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col d-flex flex-column align-items-center">
-                        <div className="mt-3">
-                            <Uppy />
-                        </div>
-                        <div className="align-self-stretch">
-                            <ThrottleReversedFrequenciesReceivedWordCloud/>
-                        </div>
-                    </div>
-                    <div className="col-sm-12 col-md-3">
-                        <WordList/>
-                    </div>
-                </div>
+  render() {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col d-flex flex-column align-items-center">
+            <div className="mt-3">
+              <Uppy />
             </div>
-        );
-    }
+            <div className="align-self-stretch">
+              <ThrottleReversedFrequenciesReceivedWordCloud />
+            </div>
+          </div>
+          <div className="col-sm-12 col-md-3">
+            <WordList />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default WordNoterApp;

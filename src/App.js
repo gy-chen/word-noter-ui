@@ -5,7 +5,7 @@ import WordNoterApp from './WordNoterApp';
 import LoginRedirect from './component/LoginRedirect';
 import Header from './container/Header';
 import LoginCallback from './container/LoginCallback';
-import './App.css'
+import './App.css';
 
 class App extends Component {
   render() {

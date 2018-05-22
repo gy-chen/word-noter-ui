@@ -14,10 +14,8 @@ import withReceivedWords from './withReceivedWords';
  *
  * @param Component
  */
-function withDebounceReceivedWords(Component, debounceTime=2000) {
-
+function withDebounceReceivedWords(Component, debounceTime = 2000) {
   class WithDebounceReceivedWords extends React.Component {
-
     constructor(props) {
       super(props);
 
@@ -51,12 +49,7 @@ function withDebounceReceivedWords(Component, debounceTime=2000) {
     }
 
     render() {
-      return (
-        <Component
-          {...this.props}
-          words={this.state.words}
-        />
-      );
+      return <Component {...this.props} words={this.state.words} />;
     }
   }
 

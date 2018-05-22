@@ -6,8 +6,8 @@ import socket from './socket';
 const uppy = Uppy();
 
 uppy.use(SokcetIOUpload, {
-    channel: 'image',
-    io: socket
+  channel: 'image',
+  io: socket
 });
 
 uppy.run();

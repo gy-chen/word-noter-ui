@@ -1,9 +1,9 @@
-import _ from "lodash";
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { min, max } from "d3-array";
-import { scaleLinear } from "d3-scale";
-import cloud from "d3-cloud";
+import _ from 'lodash';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { min, max } from 'd3-array';
+import { scaleLinear } from 'd3-scale';
+import cloud from 'd3-cloud';
 
 /**
  * WordCloud
@@ -53,12 +53,12 @@ class WordCloud extends Component {
       .rotate(0)
       .padding(12)
       .fontSize(d => d.size)
-      .on("end", words => {
+      .on('end', words => {
         const children = words.map(word => {
           const transformX = (width >> 1) + word.x0 + word.x;
           const transformY = (height >> 1) + word.y0 + word.y;
           const style = {
-            position: "absolute",
+            position: 'absolute',
             fontSize: word.size,
             transform: `translate(${transformX}px, ${transformY}px) rotate(${
               word.rotate
@@ -68,7 +68,7 @@ class WordCloud extends Component {
             <div
               key={word.text}
               style={style}
-              onClick={() => _.invoke(this.props, "onWordClick", word.text)}
+              onClick={() => _.invoke(this.props, 'onWordClick', word.text)}
             >
               {word.text}
             </div>

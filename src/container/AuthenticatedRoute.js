@@ -8,23 +8,36 @@ import { Route, Redirect } from 'react-router-dom';
  * @param component
  * @param unauthenticatedRedirectPath
  */
-const AuthenticatedRoute = ({component: Component, unauthenticatedRedirectPath="/login", ...rest}) => {
+const AuthenticatedRoute = ({
+  component: Component,
+  unauthenticatedRedirectPath = '/login',
+  ...rest
+}) => {
+  const mapStateToProps = state => ({
+    currentUser: state.auth.currentUser
+  });
 
-    const mapStateToProps = state => ({
-       currentUser: state.auth.currentUser
-    });
+  const AuthenticatedRouteComponent = props => {
+    const { currentUser } = props;
 
-    const AuthenticatedRouteComponent = props => {
-        const { currentUser } = props;
+    return (
+      <Route
+        {...rest}
+        render={() =>
+          currentUser ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to={unauthenticatedRedirectPath} />
+          )
+        }
+      />
+    );
+  };
 
-        return <Route
-            {...rest}
-            render={() => currentUser ? <Component {...props} /> : <Redirect to={unauthenticatedRedirectPath}/>}
-        />;
-    };
-
-    const AuthenticatedRouteContainer = connect(mapStateToProps)(AuthenticatedRouteComponent);
-    return <AuthenticatedRouteContainer />;
+  const AuthenticatedRouteContainer = connect(mapStateToProps)(
+    AuthenticatedRouteComponent
+  );
+  return <AuthenticatedRouteContainer />;
 };
 
 export default AuthenticatedRoute;

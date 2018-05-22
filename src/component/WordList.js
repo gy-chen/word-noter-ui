@@ -10,15 +10,17 @@ const WordList = props => {
       {words.map(word => <Word key={word.id} word={word} />)}
     </div>
   );
-}
+};
 
 WordList.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    date: PropTypes.string.isRequired
-  }))
+  words: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      date: PropTypes.string.isRequired
+    })
+  )
 };
 
 export default WordList;
