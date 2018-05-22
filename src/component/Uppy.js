@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Webcam from 'uppy/lib/plugins/Webcam';
 import 'uppy/dist/uppy.css';
-import uppy from '../util/uppy';
+import uppy from '../service/uppy';
 
 
 class Uppy extends Component {

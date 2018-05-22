@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AuthenticatedRoute from './container/AuthenticatedRoute';
 import WordNoterApp from './WordNoterApp';
 import LoginRedirect from './component/LoginRedirect';

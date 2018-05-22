@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import socket from '../../util/socket';
+import socket from '../../service/socket';
 
 
 /**
@@ -15,7 +15,6 @@ import socket from '../../util/socket';
  *
  * @param Component
  */
-// TODO put url setting into separate module
 function withReceivedWords(Component) {
 
     return class extends React.Component {

@@ -7,7 +7,7 @@ const Header = ({currentUser}) => {
 
     return (
         <nav className="navbar navbar-light bg-light sticky-top Header">
-            <a className="navbar-brand" href="#">WordNoter</a>
+            <button className="navbar-brand btn btn-link" href="#">WordNoter</button>
             <div className="navbar-nav">
                 {!currentUser ?
                     <LoginLink/>
