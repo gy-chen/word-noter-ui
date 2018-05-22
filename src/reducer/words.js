@@ -1,10 +1,11 @@
+import _ from 'lodash';
 import { createReducer } from 'reduxsauce';
 import Types from '../action/type';
 
 const INITIAL_STATE = [];
 
 const WORDS_PUT = (state=INITIAL_STATE, action) => {
-  return [...state, action.word];
+  return _.sortBy([...state, action.word], word => word.date).reverse();
 };
 
 const HANDLERS = {

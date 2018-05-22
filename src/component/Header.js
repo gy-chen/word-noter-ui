@@ -1,11 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import LoginLink from './LoginLink';
+import './Header.css';
 
 const Header = ({currentUser}) => {
 
     return (
-        <nav className="navbar navbar-light bg-light mb-3">
+        <nav className="navbar navbar-light bg-light sticky-top Header">
             <a className="navbar-brand" href="#">WordNoter</a>
             <div className="navbar-nav">
                 {!currentUser ?

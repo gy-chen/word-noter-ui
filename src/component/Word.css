@@ -1,0 +1,8 @@
+.Word > .name {
+    font-weight: bolder;
+    margin-bottom: 0;
+}
+
+.Word > .date {
+    color: grey;
+}

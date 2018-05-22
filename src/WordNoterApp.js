@@ -24,12 +24,14 @@ class WordNoterApp extends Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col d-flex flex-column align-items-center">
-                        <Uppy />
+                        <div className="mt-3">
+                            <Uppy />
+                        </div>
                         <div className="align-self-stretch">
                             <ThrottleReversedFrequenciesReceivedWordCloud/>
                         </div>
                     </div>
-                    <div className="col-3">
+                    <div className="col-sm-12 col-md-3">
                         <WordList/>
                     </div>
                 </div>
